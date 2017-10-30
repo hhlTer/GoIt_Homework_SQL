@@ -1,0 +1,4 @@
+CREATE TABLE skills(
+  id INT PRIMARY KEY NOT NULL,
+  skill VARCHAR(50) NOT NULL
+)
