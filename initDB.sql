@@ -1,7 +1,7 @@
 #--------------------------------------------------------------
 #------------------ create DEVELOPERS table -------------------
 #--------------------------------------------------------------
-#CREATE DATABASE dvlop_3;
+CREATE DATABASE dvlop_3;
 USE dvlop_3;
 CREATE TABLE developers (
   id          SMALLINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
