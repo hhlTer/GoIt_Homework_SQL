@@ -17,7 +17,7 @@ UPDATE projects SET projects.developers_salary_cost = (
     GROUP BY mtm_id_project
 );
 
-UPDATE projects SET projects.cost = 2000;
+UPDATE projects SET projects.cost = 2000 WHERE id = 1;
 UPDATE projects SET projects.cost = 1000 WHERE id = 2;
 UPDATE projects SET projects.cost = 1600 WHERE id = 3;
 UPDATE projects SET projects.cost = 3300 WHERE id = 4;
