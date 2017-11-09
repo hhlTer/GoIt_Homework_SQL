@@ -1,24 +1,25 @@
 #---------------------------------------------------------------------------------------------
 #-------- 5. Найти клиента (customer), которая приносит меньше всего -------------------------
 #-----------  прибыли компании (company) для каждой из компаний ------------------------------
-#--- Смог вывести только таблицу, которая показывает по каждой компании всех -----------------
-# -- клиентов и их прибыль.
 #---------------------------------------------------------------------------------------------
 
-
 SELECT
-  companies.id,
-  companies.name_company,
-  customers.id,
-  customers.name_cstmer,
-  projects.name_project,
-  sum(projects.cost) AS sumpc
-FROM mtm_customer_projects
+  name_company,
+  name_cstmer,
+  min(t1.sumCost) AS msc
 
-  LEFT JOIN customers ON customers.id = mtm_customer_projects.mtm_customer_id
-  LEFT JOIN projects ON mtm_customer_projects.mtm_projects_id = projects.id
-  LEFT JOIN mtm_companies_projects ON mtm_companies_projects.mtm_id_projects = projects.id
-  LEFT JOIN companies ON mtm_companies_projects.mtm_id_company = companies.id
-
-GROUP BY name_cstmer, name_company
-ORDER BY name_company, name_cstmer
+FROM (
+                                 SELECT mtm_id_company,
+                                   name_company,
+                                   name_cstmer,
+                                   mtm_customer_id AS cstmr,
+                                   sum(cost) as sumCost
+                                 FROM  mtm_companies_projects
+                                   JOIN mtm_customer_projects ON mtm_projects_id = mtm_id_projects
+                                   JOIN projects ON projects.id = mtm_companies_projects.mtm_id_projects
+                                   JOIN companies on companies.id = mtm_companies_projects.mtm_id_company
+                                   JOIN customers on customers.id = mtm_customer_projects.mtm_customer_id
+                                 GROUP BY mtm_customer_id, mtm_id_company, name_cstmer
+                                 ORDER BY mtm_id_company
+                               ) t1
+GROUP BY name_company
